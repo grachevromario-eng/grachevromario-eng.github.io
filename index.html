@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shieldly — современная защита устройств от вирусов и онлайн-угроз">
+  <title>Shieldly — защита без лишних сложностей</title>
+
+  <style>
+    :root {
+      --blue: #3768ff;
+      --dark-blue: #2548c9;
+      --text: #10213b;
+      --muted: #64748b;
+      --background: #f7f9fc;
+      --border: #e5eaf2;
+      --white: #ffffff;
+      --green: #20c889;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(247, 249, 252, 0.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--blue);
+      clip-path: polygon(
+        50% 0,
+        92% 16%,
+        86% 67%,
+        50% 100%,
+        14% 67%,
+        8% 16%
+      );
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      color: #53627b;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .button-primary {
+      color: white;
+      background: var(--blue);
+      box-shadow: 0 8px 20px rgba(55, 104, 255, 0.25);
+    }
+
+    .button-primary:hover {
+      background: var(--dark-blue);
+      transform: translateY(-2px);
+    }
+
+    .button-light {
+      color: var(--blue);
+      background: #edf2ff;
+    }
+
+    .hero {
+      padding: 85px 0 90px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 20px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 650px;
+      margin: 0 0 22px;
+      font-size: clamp(42px, 5.5vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -4px;
+    }
+
+    .hero-copy {
+      max-width: 530px;
+      margin: 0 0 30px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .micro {
+      margin-top: 18px;
+      color: #7c8aa0;
+      font-size: 12px;
+    }
+
+    .visual {
+      position: relative;
+      min-height: 440px;
+      display: grid;
+      place-items: center;
+    }
+
+    .glow {
+      position: absolute;
+      width: 410px;
+      height: 410px;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        #d9e5ff 0%,
+        #ebf0ff 47%,
+        transparent 70%
+      );
+    }
+
+    .shield {
+      position: relative;
+      z-index: 1;
+      width: 265px;
+      height: 310px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(145deg, #5d85ff, #2c53db);
+      clip-path: polygon(
+        50% 0,
+        90% 14%,
+        83% 68%,
+        50% 100%,
+        17% 68%,
+        10% 14%
+      );
+      filter: drop-shadow(0 25px 22px rgba(55, 104, 255, 0.28));
+    }
+
+    .shield-icon {
+      font-size: 80px;
+    }
+
+    .badge {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 15px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 18px 50px rgba(40, 74, 145, 0.13);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .badge span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px #dcf9ed;
+    }
+
+    .badge-one {
+      top: 48px;
+      right: 5px;
+    }
+
+    .badge-two {
+      bottom: 54px;
+      left: 8px;
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-head {
+      max-width: 650px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 28px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(27, 55, 105, 0.04);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      color: var(--blue);
+      background: #edf2ff;
+      border-radius: 13px;
+      font-size: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .pricing-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 52px;
+      color: white;
+      background: var(--text);
+      border-radius: 28px;
+    }
+
+    .pricing-wrap h2 {
+      color: white;
+    }
+
+    .pricing-wrap p {
+      color: #aab8d0;
+    }
+
+    .price {
+      margin: 20px 0 4px;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -3px;
+    }
+
+    .price small {
+      color: #aab8d0;
+      font-size: 15px;
+      font-weight: normal;
+      letter-spacing: 0;
+    }
+
+    .checklist {
+      margin: 22px 0 28px;
+      padding: 0;
+      color: #dce6f8;
+      list-style: none;
+      font-size: 14px;
+    }
+
+    .checklist li {
+      margin: 12px 0;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      margin-right: 10px;
+      color: #55e0b0;
+      font-weight: bold;
+    }
+
+    .price-card {
+      padding: 29px;
+      color: var(--text);
+      background: white;
+      border-radius: 20px;
+    }
+
+    .price-card h3 {
+      margin: 0;
+    }
+
+    .price-card p {
+      margin: 8px 0;
+      color: var(--muted);
+    }
+
+    .price-card .button {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .faq {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    details {
+      margin: 10px 0;
+      padding: 18px 20px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    details p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 30px 0;
+      color: #7b899f;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 20;
+      padding: 14px 18px;
+      color: white;
+      background: var(--text);
+      border-radius: 12px;
+      opacity: 0;
+      transform: translate(-50%, 20px);
+      pointer-events: none;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 820px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .pricing-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      .visual {
+        min-height: 360px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-wrap {
+        gap: 25px;
+        padding: 30px 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .shield {
+        width: 210px;
+        height: 250px;
+      }
+
+      .badge-one {
+        right: -4px;
+      }
+
+      .badge-two {
+        left: -4px;
+      }
+
+      .footer-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="#top">
+          <span class="logo-mark">✓</span>
+          shieldly
+        </a>
+
+        <div class="nav-links">
+          <a href="#features">Возможности</a>
+          <a href="#pricing">Тариф</a>
+          <a href="#faq">FAQ</a>
+        </div>
+
+        <a class="button button-primary" href="#pricing">
+          Попробовать бесплатно
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Цифровая защита нового поколения</div>
+
+          <h1>Безопасность, которая всегда на вашей стороне</h1>
+
+          <p class="hero-copy">
+            Shieldly защищает ваши устройства, данные и личную жизнь —
+            тихо работает в фоне и предупреждает об угрозах до того,
+            как они успеют навредить.
+          </p>
+
+          <div class="actions">
+            <a class="button button-primary" href="#pricing">
+              Начать бесплатно →
+            </a>
+
+            <a class="button button-light" href="#features">
+              Узнать больше
+            </a>
+          </div>
+
+          <div class="micro">
+            14 дней премиум-доступа · без привязки карты · отмена в любой момент
+          </div>
+        </div>
+
+        <div class="visual">
+          <div class="glow"></div>
+
+          <div class="shield">
+            <div class="shield-icon">✓</div>
+          </div>
+
+          <div class="badge badge-one">
+            <span></span>
+            Защита активна
+          </div>
+
+          <div class="badge badge-two">
+            <span></span>
+            Угроз не найдено
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Всё необходимое</div>
+          <h2>Один щит для всей вашей цифровой жизни</h2>
+          <p>
+            Надёжная защита без сложных настроек и раздражающих уведомлений.
+          </p>
+        </div>
+
+        <div class="features">
+          <article class="card">
+            <div class="icon">◉</div>
+            <h3>Умное сканирование</h3>
+            <p>
+              Проверяет файлы, приложения и ссылки, используя актуальную
+              базу угроз.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="icon">⌁</div>
+            <h3>Приватность в сети</h3>
+            <p>
+              Помогает защитить личные данные при работе в интернете
+              и общественных Wi‑Fi-сетях.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="icon">⚡</div>
+            <h3>Лёгкая работа</h3>
+            <p>
+              Минимально влияет на производительность, чтобы вы могли
+              заниматься своими делами.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <div class="pricing-wrap">
+          <div>
+            <div class="eyebrow" style="color:#6f9aff">
+              Простая подписка
+            </div>
+
+            <h2>Спокойствие каждый день</h2>
+
+            <p>
+              Защитите все основные устройства одной подпиской.
+            </p>
+
+            <div class="price">
+              399 ₽ <small>/ месяц</small>
+            </div>
+
+            <ul class="checklist">
+              <li>До 5 устройств</li>
+              <li>Защита в реальном времени</li>
+              <li>Приоритетная поддержка</li>
+            </ul>
+          </div>
+
+          <div class="price-card">
+            <h3>Shieldly Premium</h3>
+
+            <p>
+              Полный набор функций для дома и работы.
+            </p>
+
+            <div class="price">
+              399 ₽ <small>/ месяц</small>
+            </div>
+
+            <button class="button button-primary" onclick="showToast()">
+              Попробовать бесплатно
+            </button>
+
+            <p style="font-size:12px; text-align:center; margin-top:14px">
+              Пробный период — 14 дней
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Есть вопросы?</div>
+          <h2>Коротко о главном</h2>
+        </div>
+
+        <div class="faq">
+          <details open>
+            <summary>На каких устройствах работает Shieldly?</summary>
+            <p>
+              Сайт можно адаптировать под нужные платформы: Windows,
+              macOS, Android и iOS.
+            </p>
+          </details>
+
+          <details>
+            <summary>Нужно ли устанавливать сложные программы?</summary>
+            <p>
+              Нет. После установки продукт работает в фоновом режиме,
+              а основные параметры доступны в понятной панели управления.
+            </p>
+          </details>
+
+          <details>
+            <summary>Можно ли отменить подписку?</summary>
+            <p>
+              Да, подписку можно отменить в любой момент в настройках аккаунта.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© 2026 Shieldly. Все права защищены.</span>
+      <span>
+        Политика конфиденциальности · Условия использования
+      </span>
+    </div>
+  </footer>
+
+  <div id="toast">
+    Спасибо! Регистрация скоро будет доступна.
+  </div>
+
+  <script>
+    function showToast() {
+      const toast = document.getElementById("toast");
+
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
